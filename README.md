@@ -1,1 +1,1 @@
-![plot](./screenshot.png)
+![Website Screenshot](./screenshot.png)
