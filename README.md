@@ -1,2 +1,1 @@
-# twitter-lite
- 
+![plot](./screenshot.png)
