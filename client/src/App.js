@@ -13,7 +13,8 @@ function App() {
             <ToastContainer />
             <React.Suspense fallback={<Loader />}>
                 <Routes>
-                    <Route index element={<Home />} />
+                    <Route index path='/' element={<LoginForm />} />
+                    <Route path='/home' element={<Home />} />
                     <Route path='/signup' element={<SignUpForm />} />
                     <Route path='/login' element={<LoginForm />} />
                 </Routes>

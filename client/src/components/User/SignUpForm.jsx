@@ -25,7 +25,7 @@ const SignUpForm = () => {
             })
                 .unwrap()
                 .then((payload) => {
-                    navigate("/");
+                    navigate("/home");
                     toast.success("SignUp Successful !", {
                         position: toast.POSITION.TOP_RIGHT,
                     });

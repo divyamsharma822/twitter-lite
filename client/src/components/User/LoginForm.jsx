@@ -22,7 +22,7 @@ const LoginForm = () => {
                 .unwrap()
                 .then((payload) => {
                     window.sessionStorage.setItem("token",payload.token);
-                    navigate("/");
+                    navigate("/home");
                     toast.success("Login Successful !", {
                         position: toast.POSITION.TOP_RIGHT,
                     });

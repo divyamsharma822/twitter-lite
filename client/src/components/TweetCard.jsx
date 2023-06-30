@@ -59,7 +59,7 @@ const TweetCard = ({ tweet }) => {
         deleteTweet({ tweetId: tweet._id })
             .unwrap()
             .then((payload) => {
-                navigate("/");
+                navigate("/home");
                 toast.success("Deleted !", {
                     position: toast.POSITION.TOP_RIGHT,
                 });
