@@ -72,22 +72,20 @@ const TweetCard = ({ tweet }) => {
     };
 
     const handleEdit = (id) => {
-       
-            editTweet({ body: editedText, tweetId: id })
-                .unwrap()
-                .then((payload) => {
-                    toast.success("Edit Successful", {
-                        position: toast.POSITION.TOP_RIGHT,
-                    });
-                    setedit(false);
-                })
-                .catch((error) => {
-                    toast.error(error.data.message, {
-                        position: toast.POSITION.TOP_RIGHT,
-                    });
-                    setedit(false);
+        editTweet({ body: { description: editedText }, tweetId: id })
+            .unwrap()
+            .then((payload) => {
+                toast.success("Edit Successful", {
+                    position: toast.POSITION.TOP_RIGHT,
                 });
-      
+                setedit(false);
+            })
+            .catch((error) => {
+                toast.error(error.data.message, {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+                setedit(false);
+            });
     };
 
     return (
@@ -109,7 +107,9 @@ const TweetCard = ({ tweet }) => {
                     ) : (
                         <div className='relative flex items-end w-full gap-2 mt-3'>
                             <textarea rows={5} value={editedText} onChange={(e) => seteditedtext(e.target.value)} className='flex flex-grow p-2 rounded-md bg-[#0000005a] ring-white ring-2' />
-                            <div className='absolute flex flex-row items-center gap-1 px-3 py-2 bg-green-600 rounded-md cursor-pointer right-2 bottom-2 h-fit hover:scale-[0.95]' onClick={() => handleEdit(tweet._id)}>
+                            <div
+                                className='absolute flex flex-row items-center gap-1 px-3 py-2 bg-green-600 rounded-md cursor-pointer right-2 bottom-2 h-fit hover:scale-[0.95]'
+                                onClick={() => handleEdit(tweet._id)}>
                                 <TiTick size={20} className='text-white rounded-md' />
                                 <div className='font-medium text-white'>Save</div>
                             </div>

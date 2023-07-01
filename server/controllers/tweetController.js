@@ -9,7 +9,6 @@ exports.getTweets = async (req, res, next) => {
 
     req.user.following = [...req.user.following, req.user._id];
     const totalDocuments = await Tweet.find({ author: { $in: req.user.following } }).countDocuments();
-    
 
     const tweets = await Tweet.find({ author: { $in: req.user.following } })
         .sort({ createdAt: -1 })
@@ -53,7 +52,7 @@ exports.editTweet = async (req, res, next) => {
         return next(new ErrorHandler("You cannot update someone's tweet", 403));
     }
 
-    tweet = await Tweet.findByIdAndUpdate(tweetId, { $set: { description: req.body } });
+    tweet = await Tweet.findByIdAndUpdate({ _id: tweetId }, req.body);
 
     res.status(200).json({
         success: true,
