@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const staggeredBaseQuery = async (args, api, extraOptions) => {
+const StaggeredBaseQuery = async (args, api, extraOptions) => {
     const result = await fetchBaseQuery({
         baseUrl: "http://localhost:4000/api",
         prepareHeaders: () => {
@@ -21,7 +21,7 @@ const staggeredBaseQuery = async (args, api, extraOptions) => {
 
 export const tweetApi = createApi({
     reducerPath: "tweetApi",
-    baseQuery: staggeredBaseQuery,
+    baseQuery: StaggeredBaseQuery,
     keepUnusedDataFor: 0,
     tagTypes: ["tweets"],
     endpoints: (builder) => ({
@@ -35,7 +35,6 @@ export const tweetApi = createApi({
         }),
         createTweet: builder.mutation({
             query: (body) => {
-                console.log(body);
                 return {
                     url: `/tweet/create`,
                     method: "POST",
@@ -46,7 +45,6 @@ export const tweetApi = createApi({
         }),
         editTweet: builder.mutation({
             query: ({ body, tweetId }) => {
-                console.log(body);
                 return {
                     url: `/tweet/edit/${tweetId}`,
                     method: "PATCH",

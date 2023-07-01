@@ -4,11 +4,16 @@ import TweetCard from "./TweetCard";
 import { useGetTweetsQuery } from "../api/tweet";
 import ReactPaginate from "react-paginate";
 import Loader from "./Loader/Loader";
+import UnAuthorisedAccess from "../components/ErrorPages/UnAuthorisedAccess";
 
 const Feed = () => {
     const [page, setpage] = useState(1);
 
-    let { data, isLoading, isFetching, refetch } = useGetTweetsQuery({ page: page, size: 5 });
+    let { data, isLoading, isFetching, refetch, error } = useGetTweetsQuery({ page: page, size: 5 });
+
+    if (error) {
+        return <UnAuthorisedAccess message={error?.data?.message} />;
+    }
 
     const useHandlePageClick = async (data) => {
         setpage(data.selected + 1);

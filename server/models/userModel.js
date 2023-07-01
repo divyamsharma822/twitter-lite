@@ -92,4 +92,8 @@ userSchema.methods.unfollow = function (userId) {
     return Promise.resolve(this);
 };
 
+userSchema.methods.isFollowing = function (userId) {
+    return this.following.some((id) => id.equals(userId));
+};
+
 module.exports = mongoose.model("User", userSchema);

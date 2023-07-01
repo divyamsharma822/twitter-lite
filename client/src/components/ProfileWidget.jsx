@@ -7,7 +7,7 @@ const ProfileWidget = ({ data, isLoading, isFetching }) => {
             <div className='bg-[#1da0f27d] h-[30%] w-full rounded-t-xl'></div>
             <img src='https://picsum.photos/80' alt='' className='rounded-full aspect-square mt-[-40px] ring-8 ring-[#ffffff9d]' width={80} />
             <div className='flex flex-col mt-[20px] items-center gap-2 w-full'>
-                {isLoading || isFetching ? (
+                {(isLoading || isFetching )? (
                     <div>LOADING...</div>
                 ) : (
                     <>

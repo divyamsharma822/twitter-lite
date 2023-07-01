@@ -5,15 +5,19 @@ import ProfileWidget from "../components/ProfileWidget";
 import FeaturesWidget from "../components/FeaturesWidget";
 import { useGetDetailsQuery } from "../api/tweet";
 import Loader from "../components/Loader/Loader";
+import UnAuthorisedAccess from "../components/ErrorPages/UnAuthorisedAccess";
 
 const Home = () => {
+    const { data, isLoading, isFetching, error } = useGetDetailsQuery();
 
-    const { data, isLoading, isFetching } = useGetDetailsQuery();
-
-    if(isLoading || isFetching) {
-        return <Loader />
+    if (isLoading || isFetching) {
+        return <Loader />;
     }
-    
+
+    if (error) {
+        return <UnAuthorisedAccess message={error?.data?.message} />;
+    }
+
     return (
         <div className='bg-[#06141d] h-screen w-screen overflow-y-scroll overflow-hidden'>
             <Header data={data} isFetching={isFetching} isLoading={isLoading} />

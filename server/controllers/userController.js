@@ -64,3 +64,53 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
         message: "Logged Out",
     });
 });
+
+exports.followProfile = catchAsyncErrors(async (req, res, next) => {
+    const { userId } = req.params;
+    const { _id: authUserId } = req.user;
+
+    if (userId === authUserId.toString()) {
+        return next(new ErrorHandler("You cannot follow your own profile", 400));
+    }
+
+    const [authUserProfile, profileToFollow] = await Promise.all([User.findOne({ _id: authUserId }), User.findOne({ _id: userId })]);
+
+    if (!profileToFollow) {
+        return next(new ErrorHandler("Profile does not exists", 404));
+    }
+
+    if (authUserProfile.isFollowing(userId)) {
+        return next(new ErrorHandler("Already Followed", 400));
+    }
+
+    profileToFollow.followers.push(authUserId);
+
+    await Promise.all([authUserProfile.follow(userId), profileToFollow.save()]);
+
+    return res.json({ profile: authUserProfile });
+});
+
+exports.unfollowProfile = catchAsyncErrors(async (req, res, next) => {
+    const { userId } = req.params;
+    const { _id: authUserId } = req.user;
+
+    if (userId === authUserId.toString()) {
+        throw new ErrorHandler(400, "You cannot unfollow your own profile");
+    }
+
+    const [authUserProfile, profileToFollow] = await Promise.all([Profile.findOne({ user: authUserId }), Profile.findOne({ user: userId })]);
+
+    if (!profileToFollow) {
+        throw new ErrorHandler(404, "Profile does not exists");
+    }
+
+    if (!authUserProfile.isFollowing(userId)) {
+        throw new ErrorHandler(400, "You do not follow that profile");
+    }
+
+    profileToFollow.followers.remove(authUserId);
+
+    await Promise.all([authUserProfile.unfollow(userId), profileToFollow.save()]);
+
+    return res.json({ profile: authUserProfile });
+});

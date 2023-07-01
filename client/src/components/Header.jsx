@@ -32,6 +32,7 @@ const Header = ({ data, isLoading, isFetching }) => {
         await logout()
             .unwrap()
             .then((payload) => {
+                window.sessionStorage.clear();
                 navigate("/login");
                 toast.success("Logout Successful !", {
                     position: toast.POSITION.TOP_RIGHT,
@@ -66,7 +67,7 @@ const Header = ({ data, isLoading, isFetching }) => {
                         onClick={() => setdropdown(!dropdown)}
                         ref={ref}>
                         <RxAvatar size={30} />
-                        <div className='font-medium truncate w-[120px]'>Divyam Sharma</div>
+                        <div className='font-medium truncate w-[120px]'>{data?.name && data?.name}</div>
                         <BiSolidDownArrow size={10} />
                         {dropdown && (
                             <div className='absolute top-[110%] right-0 w-full bg-[#2a3843] flex flex-col gap-0 rounded-xl p-2'>
