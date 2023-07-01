@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .form-input{
+        @apply w-full rounded-md py-3 px-5 bg-[#1b222c] text-base text-white placeholder-[#ACB6BE] outline-none focus-visible:shadow-none;
+    }
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
 html {
     font-size: 20px;
 }

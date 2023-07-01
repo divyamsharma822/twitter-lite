@@ -3,7 +3,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
 // Get All Tweets
-exports.getTweets = async (req, res, next) => {
+exports.getTweets = catchAsyncErrors(async (req, res, next) => {
     const pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 0;
     const page = req.query.page ? parseInt(req.query.page) - 1 : 0;
 
@@ -21,10 +21,10 @@ exports.getTweets = async (req, res, next) => {
         tweets,
         totalDocuments,
     });
-};
+});
 
 // Create Tweet
-exports.createTweet = async (req, res, next) => {
+exports.createTweet = catchAsyncErrors(async (req, res, next) => {
     req.body.author = req.user.id;
 
     const newTweet = new Tweet(req.body);
@@ -34,13 +34,12 @@ exports.createTweet = async (req, res, next) => {
         success: true,
         savedTweet,
     });
-};
+});
 
 // Edit Tweet
-exports.editTweet = async (req, res, next) => {
+exports.editTweet = catchAsyncErrors(async (req, res, next) => {
     const { tweetId } = req.params;
     const { _id: userId } = req.user;
-    console.log(req.body);
 
     let tweet = await Tweet.findById(tweetId);
 
@@ -58,7 +57,7 @@ exports.editTweet = async (req, res, next) => {
         success: true,
         tweet,
     });
-};
+});
 
 // Delete Tweet
 exports.deleteTweet = catchAsyncErrors(async (req, res, next) => {

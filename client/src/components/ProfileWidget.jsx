@@ -1,8 +1,6 @@
 import React from "react";
-import { useGetDetailsQuery } from "../api/tweet";
 
-const ProfileWidget = () => {
-    const { data, isLoading, isFetching } = useGetDetailsQuery();
+const ProfileWidget = ({ data, isLoading, isFetching }) => {
 
     return (
         <div className='sticky top-20 hidden lg:flex rounded-xl bg-[#1b2730] text-[#939ba7] h-[370px] mx-3 w-[20%] min-w-[250px] flex-col justify-start items-center'>

@@ -3,6 +3,7 @@ import FeedInput from "./FeedInput";
 import TweetCard from "./TweetCard";
 import { useGetTweetsQuery } from "../api/tweet";
 import ReactPaginate from "react-paginate";
+import Loader from "./Loader/Loader";
 
 const Feed = () => {
     const [page, setpage] = useState(1);
@@ -51,7 +52,7 @@ const Feed = () => {
                         </div>
                     </>
                 ) : (
-                    <div className='text-xl text-center text-white'>LOADING...</div>
+                    <Loader />
                 )}
             </div>
         </div>

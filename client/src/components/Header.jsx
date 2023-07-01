@@ -7,8 +7,9 @@ import { BiSolidDownArrow } from "react-icons/bi";
 import { useLogoutMutation } from "../api/user";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loader from "./Loader/Loader";
 
-const Header = () => {
+const Header = ({ data, isLoading, isFetching }) => {
     const [dropdown, setdropdown] = useState(false);
     const [logout] = useLogoutMutation();
     const navigate = useNavigate();
@@ -57,24 +58,28 @@ const Header = () => {
                 </div>
             </div>
             <div className='flex items-center justify-end gap-7'>
-                <div
-                    className='relative bg-[#2a3843] rounded-full pl-2 pr-4 gap-3 py-1 flex items-center justify-between text-[#c7d6e5] cursor-pointer'
-                    onClick={() => setdropdown(!dropdown)}
-                    ref={ref}>
-                    <RxAvatar size={30} />
-                    <div className='font-medium truncate w-[120px]' title="Divyam Sharma">Divyam Sharma sdfsdfsd f</div>
-                    <BiSolidDownArrow size={10} />
-                    {dropdown && (
-                        <div className='absolute top-[110%] right-0 w-full bg-[#2a3843] flex flex-col gap-0 rounded-xl p-2'>
-                            <div className='w-full p-2 rounded-md hover:bg-[#1da1f2] hover:text-white font-medium' onClick={() => navigate("/")}>
-                                Profile
+                {isLoading || isFetching ? (
+                    <Loader />
+                ) : (
+                    <div
+                        className='relative bg-[#2a3843] rounded-full pl-2 pr-4 gap-3 py-1 flex items-center justify-between text-[#c7d6e5] cursor-pointer'
+                        onClick={() => setdropdown(!dropdown)}
+                        ref={ref}>
+                        <RxAvatar size={30} />
+                        <div className='font-medium truncate w-[120px]'>Divyam Sharma</div>
+                        <BiSolidDownArrow size={10} />
+                        {dropdown && (
+                            <div className='absolute top-[110%] right-0 w-full bg-[#2a3843] flex flex-col gap-0 rounded-xl p-2'>
+                                <div className='w-full p-2 rounded-md hover:bg-[#1da1f2] hover:text-white font-medium' onClick={() => navigate("/")}>
+                                    Profile
+                                </div>
+                                <div className='w-full p-2 rounded-md hover:bg-[#1da1f2] hover:text-white font-medium' onClick={handleLogout}>
+                                    Log Out
+                                </div>
                             </div>
-                            <div className='w-full p-2 rounded-md hover:bg-[#1da1f2] hover:text-white font-medium' onClick={handleLogout}>
-                                Log Out
-                            </div>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                )}
                 <CgMenuGridO size={35} className='text-white' />
             </div>
         </div>
