@@ -8,14 +8,14 @@
 ### 1. Install dependencies  
   For client
    ```
-   cd ./client
+   cd client
    ```
    ```
    npm install
    ```
  For server
    ```
-   cd ./server
+   cd server
    ```
    ```
    npm install
@@ -34,7 +34,7 @@
 ### 3. Run Server on `4000` port
   
   ```
-   cd ./server
+   cd server
    ```
    ```
    npm run dev
@@ -42,7 +42,7 @@
 ### 4. Run Client on `3000` port
   
   ```
-   cd ./client
+   cd client
    ```
    ```
    npm start --port 3000
